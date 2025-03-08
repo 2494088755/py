@@ -74,9 +74,7 @@ onMounted(() => {
   const userInfo = localStorage.getItem('user')
   if (userInfo) {
     const user = JSON.parse(userInfo)
-    console.log('User info:', user) // 添加日志，检查用户信息
     isAdmin.value = user.username === 'admin'
-    console.log('isAdmin:', isAdmin.value) // 添加日志，检查 isAdmin 的值
   }
 })
 </script>

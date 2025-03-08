@@ -1,8 +1,6 @@
 <template>
   <div class="dashboard-container">
-    <h2>仪表盘</h2>
-    <p>欢迎使用后台管理系统！</p>
-    <div class="cards-container">
+    <div class="cards-container" v-if="isAdmin">
       <el-card class="card">
         <div class="card-content">
           <el-icon><User /></el-icon>
@@ -25,11 +23,16 @@
         </div>
       </el-card>
     </div>
-    <div class="chart-container">
+    <!-- 图表容器 -->
+    <div class="chart-container" v-if="isAdmin"> <!-- 修改：添加 v-if 控制显示 -->
       <el-card>
         <h3>图书借阅趋势</h3>
         <div class="chart-placeholder" ref="chartRef"></div>
       </el-card>
+    </div>
+    <!-- 非管理员用户显示的图片 -->
+    <div v-else class="non-admin-image"> <!-- 新增：非管理员用户显示的图片 -->
+      <img src="@/assets/生成图书管理系统封面.png" alt="Non Admin Image" style="width: 1200px;height: 550px">
     </div>
   </div>
 </template>
@@ -40,26 +43,35 @@ import { ref, onMounted } from 'vue'
 import * as echarts from 'echarts'
 
 const chartRef = ref(null)
+const isAdmin = ref(false) // 新增：用于存储用户是否为管理员
 
 onMounted(() => {
-  const chart = echarts.init(chartRef.value)
-  const option = {
-    xAxis: {
-      type: 'category',
-      data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
-    },
-    yAxis: {
-      type: 'value'
-    },
-    series: [
-      {
-        data: [120, 200, 150, 80, 70, 110, 130],
-        type: 'line',
-        smooth: true
-      }
-    ]
+  const userInfo = localStorage.getItem('user')
+  if (userInfo) {
+    const user = JSON.parse(userInfo)
+    isAdmin.value = user.username === 'admin' // 根据用户信息设置 isAdmin 值
   }
-  chart.setOption(option)
+
+  if (isAdmin.value) {
+    const chart = echarts.init(chartRef.value)
+    const option = {
+      xAxis: {
+        type: 'category',
+        data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [
+        {
+          data: [120, 200, 150, 80, 70, 110, 130],
+          type: 'line',
+          smooth: true
+        }
+      ]
+    }
+    chart.setOption(option)
+  }
 })
 </script>
 
@@ -114,4 +126,5 @@ onMounted(() => {
   border-radius: 8px;
   margin-top: 20px;
 }
+
 </style>

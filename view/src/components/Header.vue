@@ -1,7 +1,8 @@
 <!-- components/Header.vue -->
 <template>
   <div class="header-container">
-    <div class="logo">后台管理系统</div>
+    <div class="logo" v-if="isAdmin">后台管理系统</div>
+    <div class="logo" v-else>借书系统</div>
     <div class="user-info">
       <a-dropdown>
         <span class="user-dropdown">
@@ -26,6 +27,7 @@ import { Dropdown as ADropdown, Menu as AMenu, MenuItem as AMenuItem } from 'ant
 
 const router = useRouter()
 const username = ref('管理员')
+const isAdmin = ref(false)
 
 function handleLogout() {
   localStorage.clear()
@@ -37,6 +39,7 @@ onMounted(() => {
   const userInfo = localStorage.getItem('user')
   if (userInfo) {
     username.value =JSON.parse(userInfo).username
+    isAdmin.value = JSON.parse(userInfo).username === 'admin'
   }
 })
 </script>
@@ -62,7 +65,7 @@ onMounted(() => {
   cursor: pointer;
   display: flex;
   align-items: center;
-  padding: 8px 12px;
+  padding: 8px 11px;
   border-radius: 4px;
   transition: background-color 0.3s ease;
 }

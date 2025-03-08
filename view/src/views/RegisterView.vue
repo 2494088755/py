@@ -1,5 +1,5 @@
 <template>
-  <a-card title="注册" style="width: 300px; margin: 100px auto;">
+  <a-card title="注册" style="width: 300px; margin: 100px auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
     <a-form
         :model="formState"
         name="basic"
@@ -12,7 +12,7 @@
           name="username"
           :rules="[{ required: true, message: '请输入用户名!' }]"
       >
-        <a-input v-model:value="formState.username" />
+        <a-input v-model:value="formState.username" placeholder="请输入用户名" />
       </a-form-item>
 
       <a-form-item
@@ -20,7 +20,7 @@
           name="password"
           :rules="[{ required: true, message: '请输入密码!' }]"
       >
-        <a-input-password v-model:value="formState.password" />
+        <a-input-password v-model:value="formState.password" placeholder="请输入密码" />
       </a-form-item>
 
       <a-form-item
@@ -28,12 +28,12 @@
           name="checkPassword"
           :rules="[{ required: true, message: '请确认密码!' }]"
       >
-        <a-input-password v-model:value="formState.checkPassword" />
+        <a-input-password v-model:value="formState.checkPassword" placeholder="请确认密码" />
       </a-form-item>
 
       <a-form-item>
-        <a-button type="primary" html-type="submit">注册</a-button>
-        <a-button type="link" @click="goToLogin">返回登录</a-button>
+        <a-button type="primary" html-type="submit" style="width: 100%; margin-bottom: 10px;">注册</a-button>
+        <a-button type="link" @click="goToLogin" style="width: 100%; text-align: center;">返回登录</a-button>
       </a-form-item>
     </a-form>
   </a-card>

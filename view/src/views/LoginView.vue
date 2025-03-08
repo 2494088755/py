@@ -1,5 +1,5 @@
 <template>
-  <a-card title="登陆图书管理系统" style="width: 300px; margin: 100px auto;">
+  <a-card title="登陆图书管理系统" style="width: 300px; margin: 100px auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
     <a-form
         :model="formState"
         name="basic"
@@ -12,7 +12,7 @@
           name="username"
           :rules="[{ required: true, message: '请输入用户名!' }]"
       >
-        <a-input v-model:value="formState.username"/>
+        <a-input v-model:value="formState.username" placeholder="请输入用户名" />
       </a-form-item>
 
       <a-form-item
@@ -20,14 +20,16 @@
           name="password"
           :rules="[{ required: true, message: '请输入密码!' }]"
       >
-        <a-input-password v-model:value="formState.password"/>
+        <a-input-password v-model:value="formState.password" placeholder="请输入密码" />
       </a-form-item>
-      <a-form-item> <!--        添加记住我单选框-->
+
+      <a-form-item>
         <a-checkbox v-model:checked="formState.keepSession">记住我</a-checkbox>
       </a-form-item>
-      <a-form-item style="margin-left: 80px">
-        <a-button type="primary" html-type="submit">登录</a-button>
-        <a-button type="link" @click="goToRegister">注册</a-button>
+
+      <a-form-item>
+        <a-button type="primary" html-type="submit" style="width: 100%; margin-bottom: 10px;">登录</a-button>
+        <a-button type="link" @click="goToRegister" style="width: 100%; text-align: center;">注册</a-button>
       </a-form-item>
     </a-form>
   </a-card>
